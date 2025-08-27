@@ -76,7 +76,7 @@ systemctl --user stop clipboard-manager
 
 ### Uninstall
 ```bash
-./uninstall.sh
+curl -sL https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main/uninstall.sh | bash
 ```
 
 ## 🔧 Configuration

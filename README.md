@@ -49,11 +49,12 @@ That's it! The service is now running and will persist across restarts.
 
 ## 🛠️ Requirements
 
-- Wayland session (Hyprland/Sway)
+- Wayland session
 - Ruby (installed automatically)
 - wl-clipboard (installed automatically)
 
-**Note:** Without Hyprland/Sway, images are still saved but format switching is disabled
+**Full support (auto-switching):** Hyprland, Sway  
+**Partial support (save only):** Any other Wayland compositor
 
 ## 📌 Usage
 
@@ -116,8 +117,8 @@ systemctl --user status clipboard-manager
 # Check Wayland
 echo $XDG_SESSION_TYPE  # Should be "wayland"
 
-# Check Hyprland
-hyprctl version
+# Check compositor (Hyprland or Sway)
+hyprctl version 2>/dev/null || swaymsg -v
 
 # Test clipboard
 echo test | wl-copy && wl-paste

@@ -16,6 +16,7 @@ FileUtils.mkdir_p(SAVE_DIR)
 @last_mode = nil
 @last_window = ""
 @focus_detection_enabled = false
+@compositor = nil
 @last_cleanup = Time.now
 
 def log(msg)
@@ -24,19 +25,68 @@ def log(msg)
 end
 
 def initialize_focus_detection
-  @focus_detection_enabled = system("which hyprctl > /dev/null 2>&1")
-  unless @focus_detection_enabled
-    log("Warning: Hyprland not detected - auto-switching disabled")
+  if system("which hyprctl > /dev/null 2>&1")
+    @compositor = :hyprland
+    @focus_detection_enabled = true
+    log("Detected: Hyprland")
+  elsif system("which swaymsg > /dev/null 2>&1")
+    @compositor = :sway
+    @focus_detection_enabled = true
+    log("Detected: Sway")
+  else
+    @focus_detection_enabled = false
+    log("Warning: No supported compositor detected - auto-switching disabled")
   end
 end
 
 def get_focused_window
   return "" unless @focus_detection_enabled
   
+  case @compositor
+  when :hyprland
+    get_hyprland_window
+  when :sway
+    get_sway_window
+  else
+    ""
+  end
+end
+
+def get_hyprland_window
   data = JSON.parse(`hyprctl activewindow -j 2>/dev/null`)
   "#{data["class"]} #{data["title"]}".downcase
 rescue JSON::ParserError, StandardError
   ""
+end
+
+def get_sway_window
+  data = JSON.parse(`swaymsg -t get_tree 2>/dev/null`)
+  focused = find_focused_node(data)
+  return "" unless focused
+  
+  app_id = focused["app_id"] || focused["window_properties"]&.dig("class") || ""
+  name = focused["name"] || ""
+  "#{app_id} #{name}".downcase
+rescue JSON::ParserError, StandardError
+  ""
+end
+
+def find_focused_node(node)
+  return node if node["focused"]
+  
+  (node["nodes"] || []).each do |child|
+    result = find_focused_node(child)
+    return result if result
+  end
+  
+  (node["floating_nodes"] || []).each do |child|
+    result = find_focused_node(child)
+    return result if result
+  end
+  
+  nil
+rescue StandardError
+  nil
 end
 
 

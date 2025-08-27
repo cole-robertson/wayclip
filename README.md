@@ -130,6 +130,9 @@ journalctl --user -u clipboard-manager -f
 # Copy an image and watch the logs
 ```
 
+### Why Ruby?
+Why not?
+
 ## 📄 License
 
 MIT - Use however you want!

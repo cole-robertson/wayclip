@@ -3,8 +3,11 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Installation paths
+INSTALL_DIR="$HOME/.local/bin"
+SCRIPT_PATH="$INSTALL_DIR/clipboard_manager.rb"
 SERVICE_NAME="clipboard-manager"
+GITHUB_RAW="https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "📋 Wayland Clipboard Manager Installer"
@@ -59,11 +62,19 @@ else
     FEATURES="save-only"
 fi
 
-# Make executable (with .rb extension)
-chmod +x "$SCRIPT_DIR/clipboard_manager.rb"
+# Download the clipboard manager script
+echo ""
+echo "📥 Downloading clipboard manager..."
+mkdir -p "$INSTALL_DIR"
+curl -sL "$GITHUB_RAW/clipboard_manager.rb" -o "$SCRIPT_PATH" || {
+    echo "❌ Failed to download clipboard manager"
+    exit 1
+}
+chmod +x "$SCRIPT_PATH"
+echo "   ✓ Downloaded to $SCRIPT_PATH"
 
 # Create directories
-mkdir -p "$HOME/Desktop/claude-images"
+mkdir -p "$HOME/Desktop/clipboard-images"
 mkdir -p "$HOME/.config/systemd/user"
 
 # Create systemd service
@@ -78,7 +89,7 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
-ExecStart=$SCRIPT_DIR/clipboard_manager.rb
+ExecStart=$SCRIPT_PATH
 
 [Install]
 WantedBy=default.target
@@ -99,12 +110,12 @@ if systemctl --user is-active --quiet "$SERVICE_NAME.service"; then
     echo ""
     if [ "$FEATURES" = "auto-switch" ]; then
         echo "The clipboard manager is now running and will:"
-        echo "• Save all copied images to ~/Desktop/claude-images/"
+        echo "• Save all copied images to ~/Desktop/clipboard-images/"
         echo "• Auto-switch to file paths in terminals/editors"
         echo "• Keep images for Discord/Slack/chat apps"
     else
         echo "The clipboard manager is running (limited mode):"
-        echo "• Save all copied images to ~/Desktop/claude-images/"
+        echo "• Save all copied images to ~/Desktop/clipboard-images/"
         echo "• No automatic format switching"
         echo ""
         echo "⚠️  Install Hyprland for automatic format switching"

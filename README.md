@@ -13,23 +13,8 @@ This tool watches your clipboard and switches formats based on your focused wind
 ## 🚀 Quick Start
 
 ```bash
-# Download and install in one command
-curl -sL https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main/clipboard_manager.rb > ~/.local/bin/clipboard_manager.rb
-chmod +x ~/.local/bin/clipboard_manager.rb
+# One-line install
 curl -sL https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main/install.sh | bash
-```
-
-Or install step-by-step:
-
-```bash
-# Download the script
-curl -sL https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main/clipboard_manager.rb > ~/.local/bin/clipboard_manager.rb
-chmod +x ~/.local/bin/clipboard_manager.rb
-
-# Install the service
-curl -sL https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main/install.sh > /tmp/install.sh
-chmod +x /tmp/install.sh
-/tmp/install.sh
 ```
 
 That's it! The service is now running and will persist across restarts.

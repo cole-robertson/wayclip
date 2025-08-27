@@ -4,7 +4,7 @@ A clipboard manager that understands context. Paste images as file paths in your
 
 ## The Problem
 
-You take a screenshot to share with a colleague. In Discord, you want to paste the image. In your terminal, you need the file path. Currently, you're stuck manually saving files or typing paths. It's the kind of friction that breaks your flow a hundred times a day.
+You take a screenshot to share with a colleague. In Discord, you want to paste the image. But in a different case you take a screenshot, and want to paste it into claude code in your terminal. In that case you need the file path. Currently, you're stuck manually saving files or typing paths. It's the kind of friction that breaks your flow a hundred times a day.
 
 ## The Solution
 
@@ -31,7 +31,7 @@ That's it! The service is now running and will persist across restarts.
 ## 🎯 How It Works
 
 1. Copy any image (screenshot, download, etc.)
-2. Focus on your terminal → `Ctrl+V` pastes the file path
+2. Focus on your terminal → `Ctrl+SHFT+V` pastes the file path
 3. Focus on Discord → `Ctrl+V` pastes the actual image
 4. No manual switching needed!
 

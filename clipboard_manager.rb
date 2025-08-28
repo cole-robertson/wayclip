@@ -55,7 +55,15 @@ def determine_extension(mime)
   case mime
   when /png/ then ".png"
   when /jpeg|jpg/ then ".jpg"
-  else ".png"
+  when /gif/ then ".gif"
+  when /webp/ then ".webp"
+  when /bmp|bitmap/ then ".bmp"
+  when /tiff|tif/ then ".tiff"
+  when /svg/ then ".svg"
+  when /ico|icon/ then ".ico"
+  when /heic/ then ".heic"
+  when /heif/ then ".heif"
+  else ".png"  # Default fallback for unknown formats
   end
 end
 
@@ -167,7 +175,7 @@ def cleanup_old_images
   cutoff_time = now - (RETENTION_DAYS * 24 * 60 * 60)
   removed_count = 0
   
-  Dir.glob(File.join(SAVE_DIR, "clipboard-*.{png,jpg,jpeg}")).each do |file|
+  Dir.glob(File.join(SAVE_DIR, "clipboard-*.{png,jpg,jpeg,gif,webp,bmp,tiff,svg,ico,heic,heif}")).each do |file|
     begin
       # Use access time (atime) to determine when file was last used
       atime = File.atime(file)

@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Wayland Clipboard Manager - Auto-switches between image/path based on focused window
+# Wayclip - Auto-switches between image/path based on focused window
 
 require "fileutils"
 require "json"

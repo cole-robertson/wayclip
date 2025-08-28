@@ -1,16 +1,16 @@
 #!/bin/bash
-# One-command installer for Wayland Clipboard Manager
+# One-command installer for Wayclip
 
 set -e
 
 # Installation paths
 INSTALL_DIR="$HOME/.local/bin"
 SCRIPT_PATH="$INSTALL_DIR/clipboard_manager.rb"
-SERVICE_NAME="clipboard-manager"
-GITHUB_RAW="https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main"
+SERVICE_NAME="wayclip"
+GITHUB_RAW="https://raw.githubusercontent.com/cole-robertson/wayclip/main"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📋 Wayland Clipboard Manager Installer"
+echo "📋 Wayclip Installer"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
@@ -81,7 +81,7 @@ mkdir -p "$HOME/.config/systemd/user"
 echo "🔧 Creating systemd service..."
 cat > "$HOME/.config/systemd/user/$SERVICE_NAME.service" << EOF
 [Unit]
-Description=Wayland Clipboard Manager - Auto-switch image/path for terminals
+Description=Wayclip - Auto-switch clipboard image/path for terminals
 After=graphical-session.target
 StartLimitIntervalSec=0
 

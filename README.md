@@ -1,4 +1,4 @@
-# Wayland Clipboard Manager
+# Wayclip
 
 A clipboard manager that understands context. Paste images as file paths in your terminal, and as actual images in Discord - automatically.
 
@@ -14,7 +14,7 @@ This tool watches your clipboard and switches formats based on your focused wind
 
 ```bash
 # One-line install
-curl -sL https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/cole-robertson/wayclip/main/install.sh | bash
 ```
 
 That's it! The service is now running and will persist across restarts.
@@ -62,21 +62,21 @@ After installation, the service runs automatically. No interaction needed!
 ### Service Commands
 ```bash
 # Check status
-systemctl --user status clipboard-manager
+systemctl --user status wayclip
 
 # View logs
-journalctl --user -u clipboard-manager -f
+journalctl --user -u wayclip -f
 
 # Restart
-systemctl --user restart clipboard-manager
+systemctl --user restart wayclip
 
 # Stop
-systemctl --user stop clipboard-manager
+systemctl --user stop wayclip
 ```
 
 ### Uninstall
 ```bash
-curl -sL https://raw.githubusercontent.com/cole-robertson/wayland-clipboard-manager/main/uninstall.sh | bash
+curl -sL https://raw.githubusercontent.com/cole-robertson/wayclip/main/uninstall.sh | bash
 ```
 
 ## 🔧 Configuration
@@ -111,7 +111,7 @@ Edit `clipboard_manager.rb` to:
 **Not switching?**
 ```bash
 # Check if running
-systemctl --user status clipboard-manager
+systemctl --user status wayclip
 
 # Check Wayland
 echo $XDG_SESSION_TYPE  # Should be "wayland"
@@ -126,7 +126,7 @@ echo test | wl-copy && wl-paste
 **Wrong app detection?**
 ```bash
 # See what window is detected
-journalctl --user -u clipboard-manager -f
+journalctl --user -u wayclip -f
 # Copy an image and watch the logs
 ```
 

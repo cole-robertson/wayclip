@@ -1,10 +1,10 @@
 #!/bin/bash
-# Uninstaller for Wayland Clipboard Manager
+# Uninstaller for Wayclip
 
-SERVICE_NAME="clipboard-manager"
+SERVICE_NAME="wayclip"
 SCRIPT_PATH="$HOME/.local/bin/clipboard_manager.rb"
 
-echo "🗑️  Uninstalling Wayland Clipboard Manager..."
+echo "🗑️  Uninstalling Wayclip..."
 
 # Stop and disable service
 systemctl --user stop "$SERVICE_NAME.service" 2>/dev/null
@@ -16,7 +16,7 @@ rm -f "$HOME/.config/systemd/user/$SERVICE_NAME.service"
 # Remove the script itself
 if [ -f "$SCRIPT_PATH" ]; then
     rm -f "$SCRIPT_PATH"
-    echo "✅ Removed clipboard manager script"
+    echo "✅ Removed wayclip script"
 fi
 
 # Reload systemd
